@@ -13,39 +13,27 @@ public class FileWriteExample {
         String fileName5 = "example5.txt";
 
         // 1. Using FileWriter
-        try (FileWriter writer = new FileWriter(fileName1)) {
-            writer.write(data);
+        File hiddenFile = new File (".topSecret.txt");
+        try (FileWriter writer = new FileWriter(hiddenFile)) {
+            writer.write("collinPassword");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        
+
+        File hiddenFolder = new File (".superTopSecret");
+        {
+            //creates new hidden folder
+            hiddenFolder.mkdir();
         }
 
-        // 2. Using BufferedWriter
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName2))) {
-            bufferedWriter.write(data);
-        } catch (IOException e) {
-            e.printStackTrace();
+        File regularFile = new File ("plainTextFile.txt");
+        {
+            FileWriter writer2 = new FileWriter (regularFile);
+            writer2.writer ("top secret data");
+            writer2.close();
         }
 
-        // 3. Using FileOutputStream
-        try (FileOutputStream outputStream = new FileOutputStream(fileName3)) {
-            outputStream.write(data.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // 4. Using BufferedOutputStream
-        try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(fileName4))) {
-            bufferedOutputStream.write(data.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // 5. Using Files (java.nio.file)
-        try {
-            Files.write(Paths.get(fileName5), data.getBytes(StandardCharsets.UTF_8));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+}
 }
 
