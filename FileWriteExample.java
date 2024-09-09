@@ -22,18 +22,21 @@ public class FileWriteExample {
         
 
         File hiddenFolder = new File (".superTopSecret");
-        {
+        if (!hiddenFolder.exists()) {   
             //creates new hidden folder
             hiddenFolder.mkdir();
         }
 
         File regularFile = new File ("plainTextFile.txt");
-        {
-            FileWriter writer2 = new FileWriter (regularFile);
-            writer2.writer ("top secret data");
-            writer2.close();
+        try (FileWriter writer2 = new FileWriter (regularFile)){
+            writer2.write ("top secret data");
+        } catch (IOException e) {   
         }
 
-}
+    }
+    private static void printFileSize (String fileName){
+        File file = new File (fileName);
+        System.out.println ("File size: " + file.length());
+    }
 }
 
