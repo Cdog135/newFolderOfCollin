@@ -19,7 +19,7 @@ public class FileWriteExample {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+        printFileSize (".topSecret.txt");
 
         File hiddenFolder = new File (".superTopSecret");
         if (!hiddenFolder.exists()) {   
@@ -27,16 +27,20 @@ public class FileWriteExample {
             hiddenFolder.mkdir();
         }
 
-        File regularFile = new File ("plainTextFile.txt");
+        File regularFile = new File (hiddenFolder, "plainTextFile.txt");
         try (FileWriter writer2 = new FileWriter (regularFile)){
             writer2.write ("top secret data");
-        } catch (IOException e) {   
+        } 
+        catch (IOException e) {   
         }
+        printFileSize(".superTopSecret/.plainTextFile.txt");
 
     }
-    private static void printFileSize (String fileName){
+    private static void printFileSize (String fileName)
+    {
         File file = new File (fileName);
         System.out.println ("File size: " + file.length());
     }
+    
 }
 
