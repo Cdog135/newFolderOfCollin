@@ -33,7 +33,13 @@ public class FileWriteExample {
             writer2.writer ("top secret data");
             writer2.close();
         }
+    }
+       
+        private static void printTotalFileSize(String... fileNames) 
+        {
+           System.out.println("Total size of all files: ...TBD... bytes");
+        }
 
 }
-}
+
 
