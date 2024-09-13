@@ -29,16 +29,36 @@ public class FileWriteExample {
 
         File regularFile = new File ("plainTextFile.txt");
         {
-            FileWriter writer2 = new FileWriter (regularFile);
-            writer2.writer ("top secret data");
-            writer2.close();
+            FileWriter writer2;
+            try {
+                writer2 = new FileWriter (regularFile);
+                writer2.write ("top secret data");
+                writer2.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } //surrounded this with a try catch to handle ioexception
         }
+        
+        //printTotalFileSize("fileName1.txt", ".superTopSecret/fileName2.txt", ".superTopSecret/fileName3.txt");
+        // ^ this code (if run inside the main) will test the printTotalFileSize method
+    }
+
+    //you don't have the print file size method so i added that too
+    private static void printFileSize (String fileName) {
+        File file = new File(fileName);
+        System.out.println (file.length());
     }
        
-        private static void printTotalFileSize(String... fileNames) 
-        {
-           System.out.println("Total size of all files: ...TBD... bytes");
+    private static void printTotalFileSize(String... fileNames) {
+        long totalSize = 0;
+        for (String fileName : fileNames) {
+            File file = new File(fileName);
+            if (file.exists()) {
+                totalSize += file.length();
+            }
         }
+        System.out.println("Total size of all files: " + totalSize + " bytes");
+    }
 
 }
 
